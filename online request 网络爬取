@@ -1,0 +1,41 @@
+from urllib.request import Request,urlopen
+from fake_useragent import UserAgent
+
+for i in range(0,60,20):
+    headers={'User-Agent':UserAgent().chrome}
+    url = 'https://movie.douban.com/j/chart/top_list?type=11&interval_id=100%3A90&action=&start={}&limit=20'\
+        .format(i)
+    request=Request(url,headers=headers)
+    response=urlopen(request)
+    print(response.read().decode())
+
+#全部爬取
+i=0
+while True:
+    headers = {'User-Agent': UserAgent().chrome}
+    url = 'https://movie.douban.com/j/chart/top_list?type=11&interval_id=100%3A90&action=&start={}&limit=20' \
+        .format(i)
+    request = Request(url, headers=headers)
+    response = urlopen(request)
+    data=response.read().decode()
+    print('已经进行到第{}个数据'.format(i+20))
+
+    if data=='' or data is None:
+        break
+    else:
+        i+=20
+
+#更改网址,增加每次加载数量, 增加效率
+i=0
+while True:
+    headers = {'User-Agent': UserAgent().chrome}
+    url = 'https://movie.douban.com/j/chart/top_list?type=11&interval_id=100%3A90&action=&start={}&limit=100' \
+        .format(i)
+    request = Request(url, headers=headers)
+    response = urlopen(request)
+    data=response.read().decode()
+    print('已经进行到第{}个数据'.format(i + 100))
+    if data=='' or data is None:
+        break
+    else:
+        i+=100
