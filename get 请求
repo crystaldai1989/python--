@@ -1,0 +1,28 @@
+import urllib.request
+
+def load_data():
+    url='https://www.baidu.com/'
+
+    response=urllib.request.urlopen(url)
+    info=response.read()
+    data=info.decode('utf-8')
+
+    #保存成html
+    with open('baidu.html','w',encoding='utf-8')as f:
+        f.write(data)
+    #保存成text
+    with open('baidu.txt','w',encoding='utf-8')as t:
+        t.write(data)
+load_data()
+
+
+#urlendcode
+import urllib.parse
+import string
+params={
+    'wd':'中文',
+    'key':'你好',
+    'value':'再见'
+}
+string_params=urllib.parse.urlencode(params)
+print(string_params)
